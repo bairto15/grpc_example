@@ -24,10 +24,10 @@ func main() {
 		log.Fatal(err)
 	}
 
-	value := proto.Request{ Message: str }
+	req := proto.Request{ Message: str }
 
 	c := proto.NewReverseClient(conn)
-	res, err := c.Do(context.Background(), &value)
+	res, err := c.Do(context.Background(), &req)
 	if err != nil {
 		log.Fatal(err)
 	}
