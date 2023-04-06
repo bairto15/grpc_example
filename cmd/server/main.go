@@ -1,11 +1,11 @@
 package main
 
 import (
-	"grpcExample/pkg/revers"
 	"log"
 	"net"
 
-	proto "grpcExample/grpc"
+	proto "grpcExample/pkg/grpc"
+	"grpcExample/pkg/revers"
 
 	"google.golang.org/grpc"
 )
@@ -21,8 +21,8 @@ func main() {
 	log.Print("запуск...")
 
 	s := grpc.NewServer()
-	srv := &revers.GRPCServer{}
-	proto.RegisterReverseServer(s, srv)
+	srv := &revers.Flow{}
+	proto.RegisterFlowServer(s, srv)
 	
 	l, err := net.Listen("tcp", ":8080")
 	if err != nil {

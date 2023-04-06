@@ -1,27 +1,33 @@
 package revers
 
 import (
-	"context"
-	"grpcExample/grpc"
+	"grpcExample/pkg/grpc"
+	"log"
+	"sync"
+	"time"
 )
 
-type GRPCServer struct{}
+type Flow struct{}
 
-//Реализация интерфейса Do revers
-func (s *GRPCServer) Do(ctx context.Context, req *grpc.Request) (*grpc.Response, error) {
-	strRev := reverse(req.Message)
+//Реализация интерфейса Flow
+func (s *Flow) GetData(req *grpc.Number, srv grpc.Flow_GetDataServer) error {
+	log.Printf("fetch response start: %d, end: %d", req.Start, req.End)
 
-	res := grpc.Response{Message: strRev }
-	
-	return &res, nil
-}
+	var wg sync.WaitGroup
+	for i := 0; i <= int(req.End); i++ {
+		wg.Add(1)
+		go func(count int64) {
+			defer wg.Done()
+      
+			time.Sleep(time.Duration(count) * time.Second)
+			
+			resp := grpc.Response{Numb: count}
+			if err := srv.Send(&resp); err != nil {
+				log.Printf("send error %v", err)
+			}			
+		}(int64(i))
+	}
 
-func reverse(s string) string {
-    rns := []rune(s) // convert to rune
-    for i, j := 0, len(rns)-1; i < j; i, j = i+1, j-1 {
-  
-        rns[i], rns[j] = rns[j], rns[i]
-    }
-  
-    return string(rns)
+	wg.Wait()
+	return nil
 }

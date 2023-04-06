@@ -1,17 +1,18 @@
 syntax = "proto3";
 
-package reverse;
+package grpc_flow;
 
 option go_package = "../grpc/;grpc";
 
-service Reverse {
-    rpc Do(Request) returns (Response) {}
+service Flow {
+    rpc GetData(Number) returns (stream Response) {}
 }
 
-message Request {
-    string message = 1;
+message Number {
+    int64 start = 1;
+    int64 end = 2;
 }
 
 message Response {
-    string message = 1;
+    int64 numb = 1;
 }

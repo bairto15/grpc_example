@@ -3,9 +3,11 @@ package main
 import (
 	"context"
 	"flag"
+	"io"
 	"log"
+	"strconv"
 
-	proto "grpcExample/grpc"
+	proto "grpcExample/pkg/grpc"
 
 	"google.golang.org/grpc"
 )
@@ -24,13 +26,37 @@ func main() {
 		log.Fatal(err)
 	}
 
-	req := proto.Request{ Message: str }
-
-	c := proto.NewReverseClient(conn)
-	res, err := c.Do(context.Background(), &req)
+	end, err := strconv.ParseInt(str, 10, 64)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	log.Print(res.Message)
+	req := proto.Number{ Start: 0, End: end }
+
+	c := proto.NewFlowClient(conn)
+	stream, err := c.GetData(context.Background(), &req)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	log.Print(stream)
+
+	done := make(chan bool)
+
+	go func() {
+		for {
+			resp, err := stream.Recv()
+			if err == io.EOF {
+				done <- true
+				return
+			}
+			if err != nil {
+				log.Fatalf("cannot receive %v", err)
+			}
+			log.Printf("Resp received: %d", resp.Numb)
+		}
+	}()
+
+	<-done
+	log.Printf("finished")
 }

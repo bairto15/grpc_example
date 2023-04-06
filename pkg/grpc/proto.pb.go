@@ -24,16 +24,17 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
-type Request struct {
+type Number struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Start int64 `protobuf:"varint,1,opt,name=start,proto3" json:"start,omitempty"`
+	End   int64 `protobuf:"varint,2,opt,name=end,proto3" json:"end,omitempty"`
 }
 
-func (x *Request) Reset() {
-	*x = Request{}
+func (x *Number) Reset() {
+	*x = Number{}
 	if protoimpl.UnsafeEnabled {
 		mi := &file_proto_proto_msgTypes[0]
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -41,13 +42,13 @@ func (x *Request) Reset() {
 	}
 }
 
-func (x *Request) String() string {
+func (x *Number) String() string {
 	return protoimpl.X.MessageStringOf(x)
 }
 
-func (*Request) ProtoMessage() {}
+func (*Number) ProtoMessage() {}
 
-func (x *Request) ProtoReflect() protoreflect.Message {
+func (x *Number) ProtoReflect() protoreflect.Message {
 	mi := &file_proto_proto_msgTypes[0]
 	if protoimpl.UnsafeEnabled && x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
@@ -59,16 +60,23 @@ func (x *Request) ProtoReflect() protoreflect.Message {
 	return mi.MessageOf(x)
 }
 
-// Deprecated: Use Request.ProtoReflect.Descriptor instead.
-func (*Request) Descriptor() ([]byte, []int) {
+// Deprecated: Use Number.ProtoReflect.Descriptor instead.
+func (*Number) Descriptor() ([]byte, []int) {
 	return file_proto_proto_rawDescGZIP(), []int{0}
 }
 
-func (x *Request) GetMessage() string {
+func (x *Number) GetStart() int64 {
 	if x != nil {
-		return x.Message
+		return x.Start
 	}
-	return ""
+	return 0
+}
+
+func (x *Number) GetEnd() int64 {
+	if x != nil {
+		return x.End
+	}
+	return 0
 }
 
 type Response struct {
@@ -76,7 +84,7 @@ type Response struct {
 	sizeCache     protoimpl.SizeCache
 	unknownFields protoimpl.UnknownFields
 
-	Message string `protobuf:"bytes,1,opt,name=message,proto3" json:"message,omitempty"`
+	Numb int64 `protobuf:"varint,1,opt,name=numb,proto3" json:"numb,omitempty"`
 }
 
 func (x *Response) Reset() {
@@ -111,26 +119,27 @@ func (*Response) Descriptor() ([]byte, []int) {
 	return file_proto_proto_rawDescGZIP(), []int{1}
 }
 
-func (x *Response) GetMessage() string {
+func (x *Response) GetNumb() int64 {
 	if x != nil {
-		return x.Message
+		return x.Numb
 	}
-	return ""
+	return 0
 }
 
 var File_proto_proto protoreflect.FileDescriptor
 
 var file_proto_proto_rawDesc = []byte{
-	0x0a, 0x0b, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x07, 0x72,
-	0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x22, 0x23, 0x0a, 0x07, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
-	0x74, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x18, 0x01, 0x20, 0x01,
-	0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67, 0x65, 0x22, 0x24, 0x0a, 0x08, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x18, 0x0a, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61,
-	0x67, 0x65, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6d, 0x65, 0x73, 0x73, 0x61, 0x67,
-	0x65, 0x32, 0x36, 0x0a, 0x07, 0x52, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x12, 0x2b, 0x0a, 0x02,
-	0x44, 0x6f, 0x12, 0x10, 0x2e, 0x72, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x2e, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x1a, 0x11, 0x2e, 0x72, 0x65, 0x76, 0x65, 0x72, 0x73, 0x65, 0x2e, 0x52,
-	0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x42, 0x0f, 0x5a, 0x0d, 0x2e, 0x2e, 0x2f,
+	0x0a, 0x0b, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x09, 0x67,
+	0x72, 0x70, 0x63, 0x5f, 0x66, 0x6c, 0x6f, 0x77, 0x22, 0x30, 0x0a, 0x06, 0x4e, 0x75, 0x6d, 0x62,
+	0x65, 0x72, 0x12, 0x14, 0x0a, 0x05, 0x73, 0x74, 0x61, 0x72, 0x74, 0x18, 0x01, 0x20, 0x01, 0x28,
+	0x03, 0x52, 0x05, 0x73, 0x74, 0x61, 0x72, 0x74, 0x12, 0x10, 0x0a, 0x03, 0x65, 0x6e, 0x64, 0x18,
+	0x02, 0x20, 0x01, 0x28, 0x03, 0x52, 0x03, 0x65, 0x6e, 0x64, 0x22, 0x1e, 0x0a, 0x08, 0x52, 0x65,
+	0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x12, 0x12, 0x0a, 0x04, 0x6e, 0x75, 0x6d, 0x62, 0x18, 0x01,
+	0x20, 0x01, 0x28, 0x03, 0x52, 0x04, 0x6e, 0x75, 0x6d, 0x62, 0x32, 0x3d, 0x0a, 0x04, 0x46, 0x6c,
+	0x6f, 0x77, 0x12, 0x35, 0x0a, 0x07, 0x47, 0x65, 0x74, 0x44, 0x61, 0x74, 0x61, 0x12, 0x11, 0x2e,
+	0x67, 0x72, 0x70, 0x63, 0x5f, 0x66, 0x6c, 0x6f, 0x77, 0x2e, 0x4e, 0x75, 0x6d, 0x62, 0x65, 0x72,
+	0x1a, 0x13, 0x2e, 0x67, 0x72, 0x70, 0x63, 0x5f, 0x66, 0x6c, 0x6f, 0x77, 0x2e, 0x52, 0x65, 0x73,
+	0x70, 0x6f, 0x6e, 0x73, 0x65, 0x22, 0x00, 0x30, 0x01, 0x42, 0x0f, 0x5a, 0x0d, 0x2e, 0x2e, 0x2f,
 	0x67, 0x72, 0x70, 0x63, 0x2f, 0x3b, 0x67, 0x72, 0x70, 0x63, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
 	0x6f, 0x33,
 }
@@ -149,12 +158,12 @@ func file_proto_proto_rawDescGZIP() []byte {
 
 var file_proto_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
 var file_proto_proto_goTypes = []interface{}{
-	(*Request)(nil),  // 0: reverse.Request
-	(*Response)(nil), // 1: reverse.Response
+	(*Number)(nil),   // 0: grpc_flow.Number
+	(*Response)(nil), // 1: grpc_flow.Response
 }
 var file_proto_proto_depIdxs = []int32{
-	0, // 0: reverse.Reverse.Do:input_type -> reverse.Request
-	1, // 1: reverse.Reverse.Do:output_type -> reverse.Response
+	0, // 0: grpc_flow.Flow.GetData:input_type -> grpc_flow.Number
+	1, // 1: grpc_flow.Flow.GetData:output_type -> grpc_flow.Response
 	1, // [1:2] is the sub-list for method output_type
 	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
@@ -169,7 +178,7 @@ func file_proto_proto_init() {
 	}
 	if !protoimpl.UnsafeEnabled {
 		file_proto_proto_msgTypes[0].Exporter = func(v interface{}, i int) interface{} {
-			switch v := v.(*Request); i {
+			switch v := v.(*Number); i {
 			case 0:
 				return &v.state
 			case 1:
@@ -221,74 +230,101 @@ var _ grpc.ClientConnInterface
 // is compatible with the grpc package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion6
 
-// ReverseClient is the client API for Reverse service.
+// FlowClient is the client API for Flow service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
-type ReverseClient interface {
-	Do(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error)
+type FlowClient interface {
+	GetData(ctx context.Context, in *Number, opts ...grpc.CallOption) (Flow_GetDataClient, error)
 }
 
-type reverseClient struct {
+type flowClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewReverseClient(cc grpc.ClientConnInterface) ReverseClient {
-	return &reverseClient{cc}
+func NewFlowClient(cc grpc.ClientConnInterface) FlowClient {
+	return &flowClient{cc}
 }
 
-func (c *reverseClient) Do(ctx context.Context, in *Request, opts ...grpc.CallOption) (*Response, error) {
-	out := new(Response)
-	err := c.cc.Invoke(ctx, "/reverse.Reverse/Do", in, out, opts...)
+func (c *flowClient) GetData(ctx context.Context, in *Number, opts ...grpc.CallOption) (Flow_GetDataClient, error) {
+	stream, err := c.cc.NewStream(ctx, &_Flow_serviceDesc.Streams[0], "/grpc_flow.Flow/GetData", opts...)
 	if err != nil {
 		return nil, err
 	}
-	return out, nil
-}
-
-// ReverseServer is the server API for Reverse service.
-type ReverseServer interface {
-	Do(context.Context, *Request) (*Response, error)
-}
-
-// UnimplementedReverseServer can be embedded to have forward compatible implementations.
-type UnimplementedReverseServer struct {
-}
-
-func (*UnimplementedReverseServer) Do(context.Context, *Request) (*Response, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Do not implemented")
-}
-
-func RegisterReverseServer(s *grpc.Server, srv ReverseServer) {
-	s.RegisterService(&_Reverse_serviceDesc, srv)
-}
-
-func _Reverse_Do_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(Request)
-	if err := dec(in); err != nil {
+	x := &flowGetDataClient{stream}
+	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
-	if interceptor == nil {
-		return srv.(ReverseServer).Do(ctx, in)
+	if err := x.ClientStream.CloseSend(); err != nil {
+		return nil, err
 	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: "/reverse.Reverse/Do",
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(ReverseServer).Do(ctx, req.(*Request))
-	}
-	return interceptor(ctx, in, info, handler)
+	return x, nil
 }
 
-var _Reverse_serviceDesc = grpc.ServiceDesc{
-	ServiceName: "reverse.Reverse",
-	HandlerType: (*ReverseServer)(nil),
-	Methods: []grpc.MethodDesc{
+type Flow_GetDataClient interface {
+	Recv() (*Response, error)
+	grpc.ClientStream
+}
+
+type flowGetDataClient struct {
+	grpc.ClientStream
+}
+
+func (x *flowGetDataClient) Recv() (*Response, error) {
+	m := new(Response)
+	if err := x.ClientStream.RecvMsg(m); err != nil {
+		return nil, err
+	}
+	return m, nil
+}
+
+// FlowServer is the server API for Flow service.
+type FlowServer interface {
+	GetData(*Number, Flow_GetDataServer) error
+}
+
+// UnimplementedFlowServer can be embedded to have forward compatible implementations.
+type UnimplementedFlowServer struct {
+}
+
+func (*UnimplementedFlowServer) GetData(*Number, Flow_GetDataServer) error {
+	return status.Errorf(codes.Unimplemented, "method GetData not implemented")
+}
+
+func RegisterFlowServer(s *grpc.Server, srv FlowServer) {
+	s.RegisterService(&_Flow_serviceDesc, srv)
+}
+
+func _Flow_GetData_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(Number)
+	if err := stream.RecvMsg(m); err != nil {
+		return err
+	}
+	return srv.(FlowServer).GetData(m, &flowGetDataServer{stream})
+}
+
+type Flow_GetDataServer interface {
+	Send(*Response) error
+	grpc.ServerStream
+}
+
+type flowGetDataServer struct {
+	grpc.ServerStream
+}
+
+func (x *flowGetDataServer) Send(m *Response) error {
+	return x.ServerStream.SendMsg(m)
+}
+
+var _Flow_serviceDesc = grpc.ServiceDesc{
+	ServiceName: "grpc_flow.Flow",
+	HandlerType: (*FlowServer)(nil),
+	Methods:     []grpc.MethodDesc{},
+	Streams: []grpc.StreamDesc{
 		{
-			MethodName: "Do",
-			Handler:    _Reverse_Do_Handler,
+			StreamName:    "GetData",
+			Handler:       _Flow_GetData_Handler,
+			ServerStreams: true,
 		},
 	},
-	Streams:  []grpc.StreamDesc{},
 	Metadata: "proto.proto",
 }
