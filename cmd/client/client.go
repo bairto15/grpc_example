@@ -31,7 +31,7 @@ func main() {
 		log.Fatal(err)
 	}
 
-	req := proto.Number{ Start: 0, End: end }
+	req := proto.Number{Start: 0, End: end}
 
 	c := proto.NewFlowClient(conn)
 	stream, err := c.GetData(context.Background(), &req)
@@ -41,22 +41,15 @@ func main() {
 
 	log.Print(stream)
 
-	done := make(chan bool)
-
-	go func() {
-		for {
-			resp, err := stream.Recv()
-			if err == io.EOF {
-				done <- true
-				return
-			}
-			if err != nil {
-				log.Fatalf("cannot receive %v", err)
-			}
-			log.Printf("Resp received: %d", resp.Numb)
+	for {
+		resp, err := stream.Recv()
+		if err == io.EOF {
+			log.Printf("finished")
+			return
 		}
-	}()
-
-	<-done
-	log.Printf("finished")
+		if err != nil {
+			log.Fatalf("cannot receive %v", err)
+		}
+		log.Printf("Resp received: %d", resp.Numb)
+	}
 }
